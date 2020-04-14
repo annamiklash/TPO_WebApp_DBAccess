@@ -1,0 +1,20 @@
+Html, body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+#table {
+    width: 300px;
+}
+
+#grandparent-container{
+    display: table;
+    height: 100%;
+    margin: 0 auto;
+}
+
+#parent-container{
+    display: table-cell;
+    vertical-align: middle;
+}
