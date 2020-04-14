@@ -2,28 +2,25 @@ package controller;
 
 import logic.UserLogic;
 import logic.UserLogicImpl;
-import model.Model;
 import model.User;
 
 import javax.annotation.Resource;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import java.io.IOException;
 
-import static common.Constants.MODEL_ATTRIBUTE;
 import static common.Constants.PASSWORD_PARAMETER;
 import static common.Constants.USERNAME_PARAMETER;
+import static common.Constants.USER_SESSION_ATTRIBUTE;
 
-@WebServlet(name = "FormServlet", urlPatterns = "/res")
-public class Controller extends HttpServlet {
+@WebServlet(name = "FormServlet", urlPatterns = "/login")
+public class LoginController extends HttpServlet {
 
     @Resource(name = "jdbc/web-jdbc")
     private DataSource dataSource;
@@ -34,20 +31,21 @@ public class Controller extends HttpServlet {
         userLogic = new UserLogicImpl(dataSource);
     }
 
-    public void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         final String username = request.getParameter(USERNAME_PARAMETER);
         final String password = request.getParameter(PASSWORD_PARAMETER);
 
         if (username != null && !username.isEmpty() && password != null && !password.isEmpty()) {
-            final boolean exists = userLogic.userExists(username, password);
+            final User user = userLogic.getUser(username, password);
 
-            if (exists) {
-                User user = userLogic.getUser(username, password);
-                final Model model = userLogic.getUserResources(user);
+            if (user != null) {
 
-                request.setAttribute(MODEL_ATTRIBUTE, model);
-                redirectToResult(request, response);
+                final HttpSession session = request.getSession();
+                session.setAttribute(USER_SESSION_ATTRIBUTE, user);
+
+                response.sendRedirect(getServletContext().getContextPath() + "/result");
+                return;
 
             } else {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Credentials Not Valid");
@@ -55,10 +53,8 @@ public class Controller extends HttpServlet {
         }
     }
 
-    private void redirectToResult(ServletRequest req, ServletResponse res) throws ServletException, IOException {
-        final ServletContext servletContext = getServletContext();
-        final RequestDispatcher requestDispatcher = servletContext.getRequestDispatcher("/result");
-
-        requestDispatcher.forward(req, res);
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        final RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
+        requestDispatcher.forward(request, response);
     }
 }

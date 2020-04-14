@@ -4,10 +4,8 @@ Html, body {
     padding: 0px;
 }
 
-#table {
+#detailsForm {
     width: 300px;
-    border-collapse: separate;
-    border-spacing: 50px 0;
 }
 
 #grandparent-container{

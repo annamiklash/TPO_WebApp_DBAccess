@@ -1,21 +1,3 @@
-/*#username {*/
-/*    height:69px;*/
-/*    float:left;*/
-/*    width:48%;*/
-/*    background:pink;*/
-/*    clear:left;*/
-/*}*/
-
-/*#password {*/
-/*    height:200px;*/
-/*    margin-top:10px;*/
-/*    display:block;*/
-/*    float:left;*/
-/*    width:48%;*/
-/*    background:lightblue;*/
-/*    clear:left;*/
-
-/*}*/
 
 Html, body {
     height: 100%;
@@ -37,3 +19,6 @@ Html, body {
     display: table-cell;
     vertical-align: middle;
 }
+
+
+

@@ -9,15 +9,36 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Details</title>
+    <link rel="stylesheet" href="resourceDetail.css">
 </head>
 <body>
-<h1>Details:</h1>
+<div id="grandparent-container">
+    <div id="parent-container">
 
-<% String content = request.getParameter("content");
-    out.print(content); %>
+        <form  id='detailsForm' action="${pageContext.request.contextPath}/resourceDetail" method="get">
+            <h1 style="color: darkblue">Details:</h1>
 
-<button type="button" name="Log Out"></button>
+            <div style="margin-top: 20px">
+                <% String details = request.getParameter("details"); %>
+                <p>
+                    <%out.print(details); %>
+                </p>
+                <%
+                    out.println("<a href =" + details + "  target=\"_blank\">Click To Go To Website</a>");
+                %>
+                <div style="margin-top: 20px">
+                    <button type="submit" formaction="${pageContext.request.contextPath}/logout" formmethod="post">Log
+                        Out
+                    </button>
+                    <button type="submit" formaction="${pageContext.request.contextPath}/result" formmethod="get">Go
+                        Back
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

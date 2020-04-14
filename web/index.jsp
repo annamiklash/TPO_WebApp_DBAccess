@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login</title>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
 
 <div id="grandparent-container">
     <div id="parent-container">
-        <form id='loginForm' action='${pageContext.request.contextPath}/res' method='GET'>
+        <h1 style="color: crimson">Log in to see your resources</h1>
+        <form id='loginForm' action='${pageContext.request.contextPath}/login' method='post'>
 
             <div id="username" style="margin-bottom: 5px"> Username: <input type='text'
                                                                             name='username'
@@ -21,7 +22,7 @@
             </div>
 
             <div>
-                <button style="align: center" type="submit">Log In</button>
+                <button class="loginButton" style="align: center" type="submit">Log In</button>
             </div>
 
         </form>

@@ -1,6 +1,5 @@
 package logic;
 
-import model.Model;
 import model.Resource;
 import model.User;
 import repository.UserRepository;
@@ -19,14 +18,8 @@ public class UserLogicImpl implements UserLogic {
     }
 
     @Override
-    public boolean userExists(String username, String password) {
-        return userRepository.UserExists(username, password);
-    }
-
-    @Override
-    public Model getUserResources(User user) {
-        final List<Resource> resources = userRepository.findResourcesForUser(user);
-        return new Model(resources);
+    public List<Resource> getUserResources(User user) {
+        return userRepository.findResourcesForUser(user);
     }
 
     @Override

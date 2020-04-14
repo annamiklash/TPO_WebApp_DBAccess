@@ -1,8 +1,6 @@
-import model.Resource;
 import repository.UserRepositoryImpl;
 
 import java.sql.SQLException;
-import java.util.List;
 
 public class MainTest {
 
