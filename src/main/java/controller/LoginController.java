@@ -31,25 +31,33 @@ public class LoginController extends HttpServlet {
         userLogic = new UserLogicImpl(dataSource);
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         final String username = request.getParameter(USERNAME_PARAMETER);
         final String password = request.getParameter(PASSWORD_PARAMETER);
 
-        if (username != null && !username.isEmpty() && password != null && !password.isEmpty()) {
-            final User user = userLogic.getUser(username, password);
+        if (username == null || username.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Credentials Not Valid");
+            return;
+        }
 
-            if (user != null) {
+        if (password == null || password.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Credentials Not Valid");
+            return;
+        }
 
-                final HttpSession session = request.getSession();
-                session.setAttribute(USER_SESSION_ATTRIBUTE, user);
+        final User user = userLogic.getUser(username, password);
 
-                response.sendRedirect(getServletContext().getContextPath() + "/result");
-                return;
+        if (user != null) {
 
-            } else {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Credentials Not Valid");
-            }
+            final HttpSession session = request.getSession();
+            session.setAttribute(USER_SESSION_ATTRIBUTE, user);
+
+            response.sendRedirect(getServletContext().getContextPath() + "/result");
+            return;
+
+        } else {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Credentials Not Valid");
         }
     }
 
@@ -58,3 +66,4 @@ public class LoginController extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 }
+

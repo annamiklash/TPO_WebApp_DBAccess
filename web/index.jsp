@@ -9,7 +9,7 @@
 
 <div id="grandparent-container">
     <div id="parent-container">
-        <h1 style="color: crimson">Log in to see your resources</h1>
+        <h1 style="color: darkblue">Log in to see your resources</h1>
         <form id='loginForm' action='${pageContext.request.contextPath}/login' method='post'>
 
             <div id="username" style="margin-bottom: 5px"> Username: <input type='text'
