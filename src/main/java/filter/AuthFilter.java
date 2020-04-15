@@ -23,14 +23,13 @@ public class AuthFilter implements Filter {
         final HttpServletResponse resp = (HttpServletResponse) response;
         final HttpSession session = req.getSession(false);
 
-        boolean loggedIn = session != null && session.getAttribute("user") != null;
+        final boolean isLoggedIn = session != null && session.getAttribute("user") != null;
 
-        if (loggedIn) {
+        if (isLoggedIn) {
             chain.doFilter(request, response);
         } else {
             resp.sendRedirect(req.getServletContext().getContextPath() + "/login");
         }
-
     }
 
     public void destroy() {

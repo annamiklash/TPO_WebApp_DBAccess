@@ -36,20 +36,9 @@ public class LoginController extends HttpServlet {
         final String username = request.getParameter(USERNAME_PARAMETER);
         final String password = request.getParameter(PASSWORD_PARAMETER);
 
-        if (username == null || username.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Credentials Not Valid");
-            return;
-        }
-
-        if (password == null || password.isEmpty()) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Credentials Not Valid");
-            return;
-        }
-
         final User user = userLogic.getUser(username, password);
 
         if (user != null) {
-
             final HttpSession session = request.getSession();
             session.setAttribute(USER_SESSION_ATTRIBUTE, user);
 

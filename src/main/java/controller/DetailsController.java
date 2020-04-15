@@ -12,10 +12,10 @@ import java.io.IOException;
 public class DetailsController extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
         final String details = (String) request.getSession().getAttribute("details");
         request.setAttribute("details", details);
         final RequestDispatcher requestDispatcher = request.getRequestDispatcher("resourceDetail.jsp");
         requestDispatcher.forward(request, response);
-
     }
 }

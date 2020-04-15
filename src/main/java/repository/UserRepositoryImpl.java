@@ -19,7 +19,6 @@ public class UserRepositoryImpl implements UserRepository {
         this.dataSource = dataSource;
     }
 
-
     @Override
     public List<Resource> findResourcesForUser(User user) {
         final String query = "Select r.name, r.content\n" +

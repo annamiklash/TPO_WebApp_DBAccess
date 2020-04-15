@@ -31,7 +31,6 @@ public class ResultController extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
         response.sendRedirect(getServletContext().getContextPath() + "/resourceDetail");
     }
 
